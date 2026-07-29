@@ -1,225 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Fantasy Character Sheet</title>
-<!-- Library for PNG Export -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<style>
-body {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background: #18181b;
-color: #f4f4f5;
-padding: 20px;
-display: flex;
-flex-direction: column;
-align-items: center;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCORTHAR CHARACTER SHEET</title>
+  <!-- Library for PNG Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #121214;
+      --card-bg: #1e1e24;
+      --accent-color: #10b981;
+      --border-color: #33333d;
+      --text-color: #e4e4e7;
+      --muted-text: #a1a1aa;
+    }
 
-/* Main Printable Sheet Area */
-#character-sheet {
-background: #27272a;
-border: 2px solid #3f3f46;
-border-radius: 12px;
-padding: 24px;
-width: 100%;
-max-width: 500px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-h1 {
-text-align: center;
-font-size: 1.5rem;
-color: #a1a1aa;
-margin-top: 0;
-border-bottom: 1px solid #3f3f46;
-padding-bottom: 10px;
-}
+    #sheet-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-sizing: border-box;
+    }
 
-.section-title {
-font-size: 0.9rem;
-text-transform: uppercase;
-letter-spacing: 1px;
-color: #10b981;
-margin: 16px 0 8px 0;
-}
+    h1 {
+      font-size: 1.4rem;
+      text-align: center;
+      letter-spacing: 1.5px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: var(--accent-color);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
 
-.stat-row {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
-background: #18181b;
-padding: 8px 12px;
-border-radius: 6px;
-}
+    .section-header {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted-text);
+      margin: 16px 0 8px 0;
+    }
 
-.stat-label {
-font-size: 0.95rem;
-}
+    .stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
 
-/* 5-Dot Selection Styling */
-.dots {
-display: flex;
-gap: 4px;
-}
+    .stat-label-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.dots input[type="radio"] {
-width: 18px;
-height: 18px;
-border-radius: 50%;
-border: 2px solid #71717a;
-appearance: none;
-cursor: pointer;
-outline: none;
-transition: all 0.15s ease;
-}
+    .pool-checkbox {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent-color);
+      cursor: pointer;
+    }
 
-.dots input[type="radio"]:checked {
-background-color: #10b981;
-border-color: #10b981;
-box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
-}
+    .stat-name {
+      font-size: 0.95rem;
+    }
 
-/* Dice Pool & Roller Controls */
-.pool-container {
-margin-top: 20px;
-background: #18181b;
-border: 1px solid #3f3f46;
-border-radius: 8px;
-padding: 16px;
-text-align: center;
-}
+    /* 5-Dot Selection Styling */
+    .dots-group {
+      display: flex;
+      gap: 4px;
+    }
 
-.pool-score {
-font-size: 2rem;
-font-weight: bold;
-color: #10b981;
-}
+    .dots-group input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #52525b;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.15s ease;
+    }
 
-.roll-results {
-margin-top: 10px;
-font-size: 0.9rem;
-color: #d4d4d8;
-min-height: 24px;
-}
+    .dots-group input[type="radio"]:checked {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+    }
 
-/* Action Buttons */
-.controls {
-width: 100%;
-max-width: 500px;
-display: flex;
-gap: 10px;
-margin-top: 16px;
-}
+    /* Pool Display Section */
+    .pool-card {
+      margin-top: 20px;
+      background: #141417;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
 
-button {
-flex: 1;
-padding: 12px;
-font-weight: bold;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-transition: background 0.2s ease;
-}
+    .pool-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      margin: 4px 0;
+    }
 
-.btn-roll { background: #10b981; color: #000; }
-.btn-roll:hover { background: #059669; }
+    .roll-output {
+      font-size: 0.9rem;
+      color: var(--text-color);
+      min-height: 28px;
+      margin-top: 8px;
+    }
 
-.btn-export { background: #3f3f46; color: #fff; }
-.btn-export:hover { background: #52525b; }
-</style>
+    /* Action Buttons */
+    .button-group {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-roll {
+      background-color: var(--accent-color);
+      color: #000;
+    }
+
+    .btn-roll:hover {
+      background-color: #059669;
+    }
+
+    .btn-export {
+      background-color: #27272a;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-export:hover {
+      background-color: #3f3f46;
+    }
+  </style>
 </head>
 <body>
 
-<!-- EXPORTABLE SHEET CONTAINER -->
-<div id="character-sheet">
-<h1>Fantasy Character Sheet</h1>
+  <!-- CHARACTER SHEET CONTAINER -->
+  <div id="sheet-container">
+    <h1>SCORTHAR CHARACTER SHEET</h1>
 
-<!-- ATTRIBUTES SECTION -->
-<div class="section-title">Attributes & Skills</div>
-<div class="stat-row">
-<span class="stat-label">Physical / Tech</span>
-<div class="dots">
-<input type="radio" name="attr" value="1">
-<input type="radio" name="attr" value="2">
-<input type="radio" name="attr" value="3" checked>
-<input type="radio" name="attr" value="4">
-<input type="radio" name="attr" value="5">
-</div>
-</div>
+    <!-- ATTRIBUTES -->
+    <div class="section-header">Attributes</div>
+    
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="attr_tech" onchange="updatePool()">
+        <span class="stat-name">Tech / Craft</span>
+      </div>
+      <div class="dots-group">
+        <input type="radio" name="attr_tech" value="1" onchange="updatePool()">
+        <input type="radio" name="attr_tech" value="2" onchange="updatePool()">
+        <input type="radio" name="attr_tech" value="3" checked onchange="updatePool()">
+        <input type="radio" name="attr_tech" value="4" onchange="updatePool()">
+        <input type="radio" name="attr_tech" value="5" onchange="updatePool()">
+      </div>
+    </div>
 
-<!-- BOONS SECTION (Imported structure from Google Sheet) -->
-<div class="section-title">Boons</div>
-<div class="stat-row">
-<span class="stat-label">Idiot Savant (+Tech)</span>
-<div class="dots">
-<input type="radio" name="boon" value="0">
-<input type="radio" name="boon" value="1">
-<input type="radio" name="boon" value="2">
-<input type="radio" name="boon" value="3">
-<input type="radio" name="boon" value="4">
-<input type="radio" name="boon" value="5" checked>
-</div>
-</div>
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="attr_phys" onchange="updatePool()">
+        <span class="stat-name">Physical</span>
+      </div>
+      <div class="dots-group">
+        <input type="radio" name="attr_phys" value="1" onchange="updatePool()">
+        <input type="radio" name="attr_phys" value="2" checked onchange="updatePool()">
+        <input type="radio" name="attr_phys" value="3" onchange="updatePool()">
+        <input type="radio" name="attr_phys" value="4" onchange="updatePool()">
+        <input type="radio" name="attr_phys" value="5" onchange="updatePool()">
+      </div>
+    </div>
 
-<!-- AUTO-CALCULATING POOL DISPLAY -->
-<div class="pool-container">
-<div>Active Dice Pool</div>
-<div class="pool-score" id="total-pool">8</div>
-<div class="roll-results" id="roll-results">Click "Roll Pool" to roll d10s</div>
-</div>
-</div>
+    <!-- SKILLS -->
+    <div class="section-header">Skills</div>
 
-<!-- INTERACTIVE CONTROLS -->
-<div class="controls">
-<button class="btn-roll" onclick="rollDice()">Roll Pool</button>
-<button class="btn-export" onclick="exportToImage()">Export Image</button>
-</div>
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="skill_tech" onchange="updatePool()">
+        <span class="stat-name">Technology</span>
+      </div>
+      <div class="dots-group">
+        <input type="radio" name="skill_tech" value="1" onchange="updatePool()">
+        <input type="radio" name="skill_tech" value="2" onchange="updatePool()">
+        <input type="radio" name="skill_tech" value="3" checked onchange="updatePool()">
+        <input type="radio" name="skill_tech" value="4" onchange="updatePool()">
+        <input type="radio" name="skill_tech" value="5" onchange="updatePool()">
+      </div>
+    </div>
 
-<script>
-// 1. Calculate Active Dice Pool
-function calculatePool() {
-const attrVal = parseInt(document.querySelector('input[name="attr"]:checked')?.value || 0);
-const boonVal = parseInt(document.querySelector('input[name="boon"]:checked')?.value || 0);
-const total = attrVal + boonVal;
+    <!-- BOONS -->
+    <div class="section-header">Boons</div>
 
-document.getElementById('total-pool').textContent = total;
-return total;
-}
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="boon_savant" onchange="updatePool()">
+        <span class="stat-name">Idiot Savant</span>
+      </div>
+      <div class="dots-group">
+        <input type="radio" name="boon_savant" value="1" onchange="updatePool()">
+        <input type="radio" name="boon_savant" value="2" onchange="updatePool()">
+        <input type="radio" name="boon_savant" value="3" onchange="updatePool()">
+        <input type="radio" name="boon_savant" value="4" onchange="updatePool()">
+        <input type="radio" name="boon_savant" value="5" checked onchange="updatePool()">
+      </div>
+    </div>
 
-// Attach listener to every radio button
-document.querySelectorAll('input[type="radio"]').forEach(dot => {
-dot.addEventListener('change', calculatePool);
-});
+    <!-- ACTIVE POOL DISPLAY -->
+    <div class="pool-card">
+      <div>Active Dice Pool</div>
+      <div class="pool-number" id="pool-score">0</div>
+      <div class="roll-output" id="roll-output">Check the boxes next to stats to build your pool.</div>
+    </div>
 
-// 2. Built-in Dice Roller (Rolls d10s, target 8+)
-function rollDice() {
-const poolSize = calculatePool();
-let rolls = [];
-let successes = 0;
+  </div>
 
-for (let i = 0; i < poolSize; i++) {
-const roll = Math.floor(Math.random() * 10) + 1;
-rolls.push(roll);
-if (roll >= 8) successes++; // Counts 8, 9, 10 as successes
-}
+  <!-- CONTROLS -->
+  <div class="button-group">
+    <button class="btn-roll" onclick="rollPool()">Roll Dice</button>
+    <button class="btn-export" onclick="exportSheet()">Export PNG</button>
+  </div>
 
-document.getElementById('roll-results').innerHTML =
-Rolls: [ ${rolls.join(', ')} ]<br><strong>Successes: ${successes}&lt;/strong>;
-}
+  <script>
+    // Calculate total pool from checked checkboxes
+    function updatePool() {
+      let totalPool = 0;
+      const checkboxes = document.querySelectorAll('.pool-checkbox:checked');
 
-// 3. Export Character Sheet as PNG
-function exportToImage() {
-const sheet = document.getElementById('character-sheet');
-html2canvas(sheet).then(canvas => {
-const link = document.createElement('a');
-link.download = 'fantasy-character-sheet.png';
-link.href = canvas.toDataURL('image/png');
-link.click();
-});
-}
-</script>
+      checkboxes.forEach(cb => {
+        const statName = cb.getAttribute('data-stat');
+        const selectedDot = document.querySelector(`input[name="${statName}"]:checked`);
+        if (selectedDot) {
+          totalPool += parseInt(selectedDot.value);
+        }
+      });
 
+      document.getElementById('pool-score').textContent = totalPool;
+      return totalPool;
+    }
+
+    // Roll d10s equal to the active pool score
+    function rollPool() {
+      const poolSize = updatePool();
+      if (poolSize <= 0) {
+        document.getElementById('roll-output').innerHTML = "<span style='color:#ef4444;'>Select at least one stat box to roll!</span>";
+        return;
+      }
+
+      let rolls = [];
+      let successes = 0;
+
+      for (let i = 0; i < poolSize; i++) {
+        const roll = Math.floor(Math.random() * 10) + 1;
+        rolls.push(roll);
+        if (roll >= 8) successes++;
+      }
+
+      document.getElementById('roll-output').innerHTML = 
+        `Rolls: [ <strong>${rolls.join(', ')}</strong> ]<br>Successes (8+): <strong>${successes}</strong>`;
+    }
+
+    // Export sheet container as PNG image
+    function exportSheet() {
+      const element = document.getElementById('sheet-container');
+      html2canvas(element).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'scorthar-character-sheet.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
 </body>
 </html>
