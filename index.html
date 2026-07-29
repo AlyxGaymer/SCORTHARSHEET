@@ -14,6 +14,7 @@
       --border-color: #33333d;
       --text-color: #e4e4e7;
       --muted-text: #a1a1aa;
+      --input-bg: #141417;
     }
 
     body {
@@ -33,7 +34,7 @@
       border-radius: 12px;
       padding: 20px;
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
       box-sizing: border-box;
     }
@@ -58,6 +59,58 @@
       margin: 16px 0 8px 0;
     }
 
+    /* Editable Text Fields */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .field-row label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted-text);
+      min-width: 110px;
+    }
+
+    .field-row input[type="text"] {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-color);
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .field-row input[type="text"]:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* Clustered Details Grid */
+    .details-cluster {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .details-cluster .field-row label {
+      min-width: 70px;
+    }
+
+    /* Stat Rows & Dots */
     .stat-row {
       display: flex;
       align-items: center;
@@ -86,7 +139,7 @@
       font-size: 0.95rem;
     }
 
-    /* 5-Dot Selection Styling */
+    /* 5-Dot Styling */
     .dots-group {
       display: flex;
       gap: 4px;
@@ -110,7 +163,7 @@
       box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
     }
 
-    /* Pool Display Section */
+    /* Pool Display */
     .pool-card {
       margin-top: 20px;
       background: #141417;
@@ -134,10 +187,10 @@
       margin-top: 8px;
     }
 
-    /* Action Buttons */
+    /* Buttons */
     .button-group {
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
       display: flex;
       gap: 10px;
       margin-top: 16px;
@@ -176,11 +229,49 @@
 </head>
 <body>
 
-  <!-- CHARACTER SHEET CONTAINER -->
+  <!-- SHEET CONTAINER -->
   <div id="sheet-container">
     <h1>SCORTHAR CHARACTER SHEET</h1>
 
-    <!-- ATTRIBUTES -->
+    <!-- PLAYER & CHARACTER INFORMATION -->
+    <div class="section-header">Identity</div>
+    <div class="field-group">
+      <div class="field-row">
+        <label for="player-name">Player Name:</label>
+        <input type="text" id="player-name" placeholder="Enter player name...">
+      </div>
+      <div class="field-row">
+        <label for="char-name">Character Name:</label>
+        <input type="text" id="char-name" placeholder="Enter character name...">
+      </div>
+    </div>
+
+    <!-- CLUSTERED CHARACTER DETAILS -->
+    <div class="section-header">Character Traits</div>
+    <div class="details-cluster">
+      <div class="field-row">
+        <label for="soul">Soul:</label>
+        <input type="text" id="soul" placeholder="...">
+      </div>
+      <div class="field-row">
+        <label for="mask">Mask:</label>
+        <input type="text" id="mask" placeholder="...">
+      </div>
+      <div class="field-row">
+        <label for="vice">Vice:</label>
+        <input type="text" id="vice" placeholder="...">
+      </div>
+      <div class="field-row">
+        <label for="merit">Merit:</label>
+        <input type="text" id="merit" placeholder="...">
+      </div>
+      <div class="field-row" style="grid-column: span 2;">
+        <label for="willpower">Willpower:</label>
+        <input type="text" id="willpower" placeholder="...">
+      </div>
+    </div>
+
+    <!-- ATTRIBUTES SECTION -->
     <div class="section-header">Attributes</div>
     
     <div class="stat-row">
@@ -211,24 +302,7 @@
       </div>
     </div>
 
-    <!-- SKILLS -->
-    <div class="section-header">Skills</div>
-
-    <div class="stat-row">
-      <div class="stat-label-group">
-        <input type="checkbox" class="pool-checkbox" data-stat="skill_tech" onchange="updatePool()">
-        <span class="stat-name">Technology</span>
-      </div>
-      <div class="dots-group">
-        <input type="radio" name="skill_tech" value="1" onchange="updatePool()">
-        <input type="radio" name="skill_tech" value="2" onchange="updatePool()">
-        <input type="radio" name="skill_tech" value="3" checked onchange="updatePool()">
-        <input type="radio" name="skill_tech" value="4" onchange="updatePool()">
-        <input type="radio" name="skill_tech" value="5" onchange="updatePool()">
-      </div>
-    </div>
-
-    <!-- BOONS -->
+    <!-- BOONS SECTION -->
     <div class="section-header">Boons</div>
 
     <div class="stat-row">
@@ -245,7 +319,7 @@
       </div>
     </div>
 
-    <!-- ACTIVE POOL DISPLAY -->
+    <!-- POOL DISPLAY -->
     <div class="pool-card">
       <div>Active Dice Pool</div>
       <div class="pool-number" id="pool-score">0</div>
