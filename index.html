@@ -446,7 +446,69 @@
       </div>
     </div>
 
-    <!-- 6. ABILITIES (MOVED TO BOTTOM) -->
+    <!-- 6. ATTRIBUTES (PLACED UNDER BOONS & BANES) -->
+    <div class="section-header">Attributes</div>
+    <div class="abilities-grid-wrapper">
+      <div class="abilities-grid">
+
+        <!-- PHYSICAL -->
+        <div class="ability-column">
+          <div class="ability-col-title">Physical</div>
+
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_strength" onchange="updatePool()"><span class="stat-name">Strength</span></div>
+            <div class="dots-container" data-stat-group="attr_strength" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_dexterity" onchange="updatePool()"><span class="stat-name">Dexterity</span></div>
+            <div class="dots-container" data-stat-group="attr_dexterity" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_stamina" onchange="updatePool()"><span class="stat-name">Stamina</span></div>
+            <div class="dots-container" data-stat-group="attr_stamina" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="ability-column">
+          <div class="ability-col-title">Social</div>
+
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_charisma" onchange="updatePool()"><span class="stat-name">Charisma</span></div>
+            <div class="dots-container" data-stat-group="attr_charisma" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_manipulation" onchange="updatePool()"><span class="stat-name">Manipulation</span></div>
+            <div class="dots-container" data-stat-group="attr_manipulation" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_appearance" onchange="updatePool()"><span class="stat-name">Appearance</span></div>
+            <div class="dots-container" data-stat-group="attr_appearance" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+        </div>
+
+        <!-- MENTAL -->
+        <div class="ability-column">
+          <div class="ability-col-title">Mental</div>
+
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_perception" onchange="updatePool()"><span class="stat-name">Perception</span></div>
+            <div class="dots-container" data-stat-group="attr_perception" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_intelligence" onchange="updatePool()"><span class="stat-name">Intelligence</span></div>
+            <div class="dots-container" data-stat-group="attr_intelligence" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label-group"><input type="checkbox" class="pool-checkbox" data-stat="attr_wits" onchange="updatePool()"><span class="stat-name">Wits</span></div>
+            <div class="dots-container" data-stat-group="attr_wits" data-value="1"><span class="dot active" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 7. ABILITIES (AT THE BOTTOM) -->
     <div class="section-header">Abilities</div>
     <div class="abilities-grid-wrapper">
       <div class="abilities-grid">
