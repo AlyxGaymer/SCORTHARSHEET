@@ -11,6 +11,7 @@
       --bg-color: #121214;
       --card-bg: #1e1e24;
       --accent-color: #10b981;
+      --bane-color: #ef4444;
       --border-color: #33333d;
       --text-color: #e4e4e7;
       --muted-text: #a1a1aa;
@@ -130,12 +131,34 @@
       margin-bottom: 6px;
       border-radius: 6px;
       border: 1px solid rgba(255,255,255,0.05);
+      gap: 8px;
     }
 
     .stat-label-group {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .stat-label-group input[type="text"] {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-color);
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      width: 100%;
+      outline: none;
+    }
+
+    .stat-label-group input[type="text"]:focus {
+      border-color: var(--accent-color);
+    }
+
+    .bane-section .stat-label-group input[type="text"]:focus {
+      border-color: var(--bane-color);
     }
 
     .pool-checkbox {
@@ -143,6 +166,11 @@
       height: 16px;
       accent-color: var(--accent-color);
       cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .bane-checkbox {
+      accent-color: var(--bane-color);
     }
 
     .stat-name {
@@ -152,24 +180,13 @@
     /* Interactive Dot Styling */
     .dots-container {
       display: flex;
-      gap: 6px;
-    }
-
-    .dots-container-10 {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      align-items: flex-end;
-    }
-
-    .dots-row {
-      display: flex;
-      gap: 6px;
+      gap: 4px;
+      flex-shrink: 0;
     }
 
     .dot {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 2px solid #52525b;
       background-color: transparent;
@@ -182,6 +199,39 @@
       background-color: var(--accent-color);
       border-color: var(--accent-color);
       box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+    }
+
+    /* Bane Dot Active Colors */
+    .bane-section .dot.active {
+      background-color: var(--bane-color);
+      border-color: var(--bane-color);
+      box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+    }
+
+    /* Willpower 10-Dot Row Specifics */
+    .willpower-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .willpower-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+
+    .dots-container-10 {
+      display: flex;
+      gap: 4px;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .dots-container-10 .dot {
+      width: 18px;
+      height: 18px;
     }
 
     /* Pool Display */
@@ -288,28 +338,26 @@
       </div>
     </div>
 
-    <!-- WILLPOWER (10-DOT DISPLAY) -->
+    <!-- WILLPOWER (10 DOTS SINGLE ROW) -->
     <div class="section-header">Willpower</div>
-    <div class="stat-row">
-      <div class="stat-label-group">
-        <input type="checkbox" class="pool-checkbox" data-stat="willpower" onchange="updatePool()">
-        <span class="stat-name">Willpower</span>
+    <div class="stat-row willpower-row">
+      <div class="willpower-header">
+        <div class="stat-label-group">
+          <input type="checkbox" class="pool-checkbox" data-stat="willpower" onchange="updatePool()">
+          <span class="stat-name">Willpower</span>
+        </div>
       </div>
       <div class="dots-container-10" data-stat-group="willpower" data-value="5">
-        <div class="dots-row">
-          <span class="dot active" data-value="1"></span>
-          <span class="dot active" data-value="2"></span>
-          <span class="dot active" data-value="3"></span>
-          <span class="dot active" data-value="4"></span>
-          <span class="dot active" data-value="5"></span>
-        </div>
-        <div class="dots-row">
-          <span class="dot" data-value="6"></span>
-          <span class="dot" data-value="7"></span>
-          <span class="dot" data-value="8"></span>
-          <span class="dot" data-value="9"></span>
-          <span class="dot" data-value="10"></span>
-        </div>
+        <span class="dot active" data-value="1"></span>
+        <span class="dot active" data-value="2"></span>
+        <span class="dot active" data-value="3"></span>
+        <span class="dot active" data-value="4"></span>
+        <span class="dot active" data-value="5"></span>
+        <span class="dot" data-value="6"></span>
+        <span class="dot" data-value="7"></span>
+        <span class="dot" data-value="8"></span>
+        <span class="dot" data-value="9"></span>
+        <span class="dot" data-value="10"></span>
       </div>
     </div>
 
@@ -345,19 +393,148 @@
     </div>
 
     <!-- BOONS SECTION -->
-    <div class="section-header">Boons</div>
+    <div class="section-header">Boons (+ Add to Pool)</div>
 
     <div class="stat-row">
       <div class="stat-label-group">
-        <input type="checkbox" class="pool-checkbox" data-stat="boon_savant" onchange="updatePool()">
-        <span class="stat-name">Idiot Savant</span>
+        <input type="checkbox" class="pool-checkbox" data-stat="boon_1" onchange="updatePool()">
+        <input type="text" placeholder="Boon 1 (e.g. Idiot Savant)..." value="Idiot Savant">
       </div>
-      <div class="dots-container" data-stat-group="boon_savant" data-value="5">
+      <div class="dots-container" data-stat-group="boon_1" data-value="5">
         <span class="dot active" data-value="1"></span>
         <span class="dot active" data-value="2"></span>
         <span class="dot active" data-value="3"></span>
         <span class="dot active" data-value="4"></span>
         <span class="dot active" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="boon_2" onchange="updatePool()">
+        <input type="text" placeholder="Boon 2 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="boon_2" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="boon_3" onchange="updatePool()">
+        <input type="text" placeholder="Boon 3 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="boon_3" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="boon_4" onchange="updatePool()">
+        <input type="text" placeholder="Boon 4 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="boon_4" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="boon_5" onchange="updatePool()">
+        <input type="text" placeholder="Boon 5 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="boon_5" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <!-- BANES SECTION -->
+    <div class="section-header bane-section" style="color: var(--bane-color);">Banes (- Subtract from Pool)</div>
+
+    <div class="stat-row bane-section">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_1" data-is-bane="true" onchange="updatePool()">
+        <input type="text" placeholder="Bane 1 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="bane_1" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row bane-section">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_2" data-is-bane="true" onchange="updatePool()">
+        <input type="text" placeholder="Bane 2 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="bane_2" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row bane-section">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_3" data-is-bane="true" onchange="updatePool()">
+        <input type="text" placeholder="Bane 3 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="bane_3" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row bane-section">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_4" data-is-bane="true" onchange="updatePool()">
+        <input type="text" placeholder="Bane 4 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="bane_4" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row bane-section">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_5" data-is-bane="true" onchange="updatePool()">
+        <input type="text" placeholder="Bane 5 Name...">
+      </div>
+      <div class="dots-container" data-stat-group="bane_5" data-value="0">
+        <span class="dot" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
       </div>
     </div>
 
@@ -404,18 +581,28 @@
       }
     });
 
-    // Calculate total pool from checked checkboxes
+    // Calculate total pool from checked checkboxes (Boons add, Banes subtract)
     function updatePool() {
       let totalPool = 0;
       const checkboxes = document.querySelectorAll('.pool-checkbox:checked');
 
       checkboxes.forEach(cb => {
         const statName = cb.getAttribute('data-stat');
+        const isBane = cb.getAttribute('data-is-bane') === 'true';
         const container = document.querySelector(`[data-stat-group="${statName}"]`);
+        
         if (container) {
-          totalPool += parseInt(container.getAttribute('data-value') || 0);
+          const val = parseInt(container.getAttribute('data-value') || 0);
+          if (isBane) {
+            totalPool -= val;
+          } else {
+            totalPool += val;
+          }
         }
       });
+
+      // Keep minimum pool at 0
+      if (totalPool < 0) totalPool = 0;
 
       document.getElementById('pool-score').textContent = totalPool;
       return totalPool;
