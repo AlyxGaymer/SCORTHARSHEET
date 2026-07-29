@@ -35,7 +35,7 @@
       border-radius: 12px;
       padding: 20px;
       width: 100%;
-      max-width: 600px;
+      max-width: 900px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
       box-sizing: border-box;
     }
@@ -99,6 +99,63 @@
       border-color: var(--accent-color);
     }
 
+    /* Clustered Details Grid */
+    .details-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .details-cluster .field-row label {
+      min-width: 80px;
+    }
+
+    @media (min-width: 420px) {
+      .details-cluster {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Abilities 3-Column Grid */
+    .abilities-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .abilities-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .ability-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ability-col-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+
     /* Side-by-Side Boons & Banes Cluster */
     .boons-banes-container {
       display: flex;
@@ -111,7 +168,7 @@
       margin-bottom: 16px;
     }
 
-    @media (min-width: 480px) {
+    @media (min-width: 600px) {
       .boons-banes-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -140,35 +197,13 @@
       color: var(--bane-color);
     }
 
-    /* Clustered Details Grid */
-    .details-cluster {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 12px;
-    }
-
-    .details-cluster .field-row label {
-      min-width: 80px;
-    }
-
-    @media (min-width: 420px) {
-      .details-cluster {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
     /* Stat Rows & Custom Dots */
     .stat-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: rgba(255, 255, 255, 0.03);
-      padding: 6px 8px;
+      padding: 5px 8px;
       border-radius: 6px;
       border: 1px solid rgba(255,255,255,0.05);
       gap: 6px;
@@ -202,8 +237,8 @@
     }
 
     .pool-checkbox {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
       accent-color: var(--accent-color);
       cursor: pointer;
       flex-shrink: 0;
@@ -214,7 +249,10 @@
     }
 
     .stat-name {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* Interactive Dot Styling */
@@ -225,8 +263,8 @@
     }
 
     .dot {
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       border: 2px solid #52525b;
       background-color: transparent;
@@ -238,13 +276,13 @@
     .dot.active {
       background-color: var(--accent-color);
       border-color: var(--accent-color);
-      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+      box-shadow: 0 0 5px rgba(16, 185, 129, 0.6);
     }
 
     .bane-column .dot.active {
       background-color: var(--bane-color);
       border-color: var(--bane-color);
-      box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+      box-shadow: 0 0 5px rgba(239, 68, 68, 0.6);
     }
 
     /* Willpower 10-Dot Row Specifics */
@@ -302,7 +340,7 @@
     /* Buttons */
     .button-group {
       width: 100%;
-      max-width: 600px;
+      max-width: 900px;
       display: flex;
       gap: 10px;
       margin-top: 16px;
@@ -379,35 +417,448 @@
       </div>
     </div>
 
-    <!-- ATTRIBUTES SECTION -->
-    <div class="section-header">Attributes</div>
-    
-    <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
-      <div class="stat-label-group">
-        <input type="checkbox" class="pool-checkbox" data-stat="attr_tech" onchange="updatePool()">
-        <span class="stat-name">Tech / Craft</span>
-      </div>
-      <div class="dots-container" data-stat-group="attr_tech" data-value="3">
-        <span class="dot active" data-value="1"></span>
-        <span class="dot active" data-value="2"></span>
-        <span class="dot active" data-value="3"></span>
-        <span class="dot" data-value="4"></span>
-        <span class="dot" data-value="5"></span>
-      </div>
-    </div>
+    <!-- ABILITIES SECTION -->
+    <div class="section-header">Abilities</div>
+    <div class="abilities-grid">
 
-    <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
-      <div class="stat-label-group">
-        <input type="checkbox" class="pool-checkbox" data-stat="attr_phys" onchange="updatePool()">
-        <span class="stat-name">Physical</span>
+      <!-- TALENTS COLUMN -->
+      <div class="ability-column">
+        <div class="ability-col-title">Talents</div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_awareness" onchange="updatePool()">
+            <span class="stat-name">Awareness</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_awareness" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_athletics" onchange="updatePool()">
+            <span class="stat-name">Athletics</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_athletics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_communication" onchange="updatePool()">
+            <span class="stat-name">Communication</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_communication" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_empathy" onchange="updatePool()">
+            <span class="stat-name">Empathy</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_empathy" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_intimidation" onchange="updatePool()">
+            <span class="stat-name">Intimidation</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_intimidation" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_subterfuge" onchange="updatePool()">
+            <span class="stat-name">Subterfuge</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_subterfuge" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_politics" onchange="updatePool()">
+            <span class="stat-name">Politics</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_politics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_performance" onchange="updatePool()">
+            <span class="stat-name">Performance</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_performance" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_sleight_of_hand" onchange="updatePool()">
+            <span class="stat-name">Sleight of Hand</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_sleight_of_hand" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_sense_motive" onchange="updatePool()">
+            <span class="stat-name">Sense Motive</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_sense_motive" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_dramatic" onchange="updatePool()">
+            <span class="stat-name">Dramatic</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_dramatic" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_visual_calculus" onchange="updatePool()">
+            <span class="stat-name">Visual Calculus</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_visual_calculus" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_pain_threshold" onchange="updatePool()">
+            <span class="stat-name">Pain Threshold</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_pain_threshold" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_endurance" onchange="updatePool()">
+            <span class="stat-name">Endurance</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_endurance" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_shivers" onchange="updatePool()">
+            <span class="stat-name">Shivers (Dream)</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_shivers" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_composure" onchange="updatePool()">
+            <span class="stat-name">Composure</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_composure" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
       </div>
-      <div class="dots-container" data-stat-group="attr_phys" data-value="2">
-        <span class="dot active" data-value="1"></span>
-        <span class="dot active" data-value="2"></span>
-        <span class="dot" data-value="3"></span>
-        <span class="dot" data-value="4"></span>
-        <span class="dot" data-value="5"></span>
+
+      <!-- SKILLS COLUMN -->
+      <div class="ability-column">
+        <div class="ability-col-title">Skills</div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_explosives" onchange="updatePool()">
+            <span class="stat-name">Explosives</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_explosives" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_crafts" onchange="updatePool()">
+            <span class="stat-name">Crafts</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_crafts" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_animal_handling" onchange="updatePool()">
+            <span class="stat-name">Animal Handling</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_animal_handling" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_projectiles" onchange="updatePool()">
+            <span class="stat-name">Projectiles/Ranged</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_projectiles" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_spellcasting" onchange="updatePool()">
+            <span class="stat-name">Spellcasting</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_spellcasting" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_stealth" onchange="updatePool()">
+            <span class="stat-name">Stealth</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_stealth" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_streetwise" onchange="updatePool()">
+            <span class="stat-name">Streetwise</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_streetwise" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_survival" onchange="updatePool()">
+            <span class="stat-name">Survival Nature</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_survival" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_melee" onchange="updatePool()">
+            <span class="stat-name">Melee Weapons</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_melee" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_martial_arts" onchange="updatePool()">
+            <span class="stat-name">Martial Arts (Hug)</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_martial_arts" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_piloting" onchange="updatePool()">
+            <span class="stat-name">Piloting/Riding</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_piloting" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_savoir_faire" onchange="updatePool()">
+            <span class="stat-name">Savoir-faire</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_savoir_faire" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
       </div>
+
+      <!-- KNOWLEDGES COLUMN -->
+      <div class="ability-column">
+        <div class="ability-col-title">Knowledges</div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_academics" onchange="updatePool()">
+            <span class="stat-name">Academics</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_academics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_arcana" onchange="updatePool()">
+            <span class="stat-name">Arcana</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_arcana" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_religion" onchange="updatePool()">
+            <span class="stat-name">Religion</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_religion" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_investigation" onchange="updatePool()">
+            <span class="stat-name">Investigation</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_investigation" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_law" onchange="updatePool()">
+            <span class="stat-name">Law/Authority</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_law" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_medicine" onchange="updatePool()">
+            <span class="stat-name">Medicine</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_medicine" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_history" onchange="updatePool()">
+            <span class="stat-name">History</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_history" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_science" onchange="updatePool()">
+            <span class="stat-name">Science</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_science" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_computer_tech" onchange="updatePool()">
+            <span class="stat-name">Computer Tech</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_computer_tech" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_homeopathy" onchange="updatePool()">
+            <span class="stat-name">Homeopathy</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_homeopathy" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_polyglot" onchange="updatePool()">
+            <span class="stat-name">Polyglot</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_polyglot" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_mechanics" onchange="updatePool()">
+            <span class="stat-name">Mechanics</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_mechanics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_electronics" onchange="updatePool()">
+            <span class="stat-name">Electronics</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_electronics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_biology" onchange="updatePool()">
+            <span class="stat-name">Biology</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_biology" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
     <!-- WILLPOWER -->
@@ -416,7 +867,7 @@
       <div class="willpower-header">
         <div class="stat-label-group">
           <input type="checkbox" class="pool-checkbox" data-stat="willpower" onchange="updatePool()">
-          <span class="stat-name">Willpower</span>
+          <span class="stat-name" style="font-size:0.9rem;">Willpower</span>
         </div>
       </div>
       <div class="dots-container-10" data-stat-group="willpower" data-value="5">
@@ -439,7 +890,7 @@
     <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
       <div class="stat-label-group">
         <input type="checkbox" class="pool-checkbox" data-stat="virtue_self_control" onchange="updatePool()">
-        <span class="stat-name">Self Control</span>
+        <span class="stat-name" style="font-size:0.9rem;">Self Control</span>
       </div>
       <div class="dots-container" data-stat-group="virtue_self_control" data-value="1">
         <span class="dot active" data-value="1"></span>
@@ -453,7 +904,7 @@
     <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
       <div class="stat-label-group">
         <input type="checkbox" class="pool-checkbox" data-stat="virtue_courage" onchange="updatePool()">
-        <span class="stat-name">Courage</span>
+        <span class="stat-name" style="font-size:0.9rem;">Courage</span>
       </div>
       <div class="dots-container" data-stat-group="virtue_courage" data-value="1">
         <span class="dot active" data-value="1"></span>
@@ -467,7 +918,1198 @@
     <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
       <div class="stat-label-group">
         <input type="checkbox" class="pool-checkbox" data-stat="virtue_conviction" onchange="updatePool()">
-        <span class="stat-name">Conviction</span>
+        <span class="stat-name" style="font-size:0.9rem;">Conviction</span>
+      </div>
+      <div class="dots-container" data-stat-group="virtue_conviction" data-value="1">
+        <span class="dot active" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <!-- SIDE-BY-SIDE BOONS & BANES SECTION -->
+    <div class="section-header">Boons & Banes</div>
+    <div class="boons-banes-container">
+      
+      <!-- BOONS COLUMN -->
+      <div class="bb-column boon-column">
+        <div class="bb-column-title title-boon">Boons (+ Pool)</div>
+        
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="boon_1" onchange="updatePool()">
+            <input type="text" placeholder="Boon 1..." value="Idiot Savant">
+          </div>
+          <div class="dots-container" data-stat-group="boon_1" data-value="5">
+            <span class="dot active" data-value="1"></span>
+            <span class="dot active" data-value="2"></span>
+            <span class="dot active" data-value="3"></span>
+            <span class="dot active" data-value="4"></span>
+            <span class="dot active" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="boon_2" onchange="updatePool()">
+            <input type="text" placeholder="Boon 2...">
+          </div>
+          <div class="dots-container" data-stat-group="boon_2" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="boon_3" onchange="updatePool()">
+            <input type="text" placeholder="Boon 3...">
+          </div>
+          <div class="dots-container" data-stat-group="boon_3" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="boon_4" onchange="updatePool()">
+            <input type="text" placeholder="Boon 4...">
+          </div>
+          <div class="dots-container" data-stat-group="boon_4" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="boon_5" onchange="updatePool()">
+            <input type="text" placeholder="Boon 5...">
+          </div>
+          <div class="dots-container" data-stat-group="boon_5" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANES COLUMN -->
+      <div class="bb-column bane-column">
+        <div class="bb-column-title title-bane">Banes (- Pool)</div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_1" data-is-bane="true" onchange="updatePool()">
+            <input type="text" placeholder="Bane 1...">
+          </div>
+          <div class="dots-container" data-stat-group="bane_1" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_2" data-is-bane="true" onchange="updatePool()">
+            <input type="text" placeholder="Bane 2...">
+          </div>
+          <div class="dots-container" data-stat-group="bane_2" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_3" data-is-bane="true" onchange="updatePool()">
+            <input type="text" placeholder="Bane 3...">
+          </div>
+          <div class="dots-container" data-stat-group="bane_3" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_4" data-is-bane="true" onchange="updatePool()">
+            <input type="text" placeholder="Bane 4...">
+          </div>
+          <div class="dots-container" data-stat-group="bane_4" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox bane-checkbox" data-stat="bane_5" data-is-bane="true" onchange="updatePool()">
+            <input type="text" placeholder="Bane 5...">
+          </div>
+          <div class="dots-container" data-stat-group="bane_5" data-value="0">
+            <span class="dot" data-value="1"></span>
+            <span class="dot" data-value="2"></span>
+            <span class="dot" data-value="3"></span>
+            <span class="dot" data-value="4"></span>
+            <span class="dot" data-value="5"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- POOL DISPLAY -->
+    <div class="pool-card">
+      <div>Active Dice Pool</div>
+      <div class="pool-number" id="pool-score">0</div>
+      <div class="roll-output" id="roll-output">Check the boxes next to stats to build your pool.</div>
+    </div>
+
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="button-group">
+    <button class="btn-roll" onclick="rollPool()">Roll Dice</button>
+    <button class="btn-export" onclick="exportSheet()">Export PNG</button>
+  </div>
+
+  <script>
+    // Handle clicking on dots to fill up to clicked value
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('dot')) {
+        const clickedDot = e.target;
+        const container = clickedDot.closest('[data-stat-group]');
+        const clickedVal = parseInt(clickedDot.getAttribute('data-value'));
+        const currentVal = parseInt(container.getAttribute('data-value'));
+
+        // Toggle logic: Clicking current rating reduces it by 1 (allows setting to 0)
+        let newVal = (clickedVal === currentVal) ? clickedVal - 1 : clickedVal;
+        container.setAttribute('data-value', newVal);
+
+        // Update dot appearances
+        const allDots = container.querySelectorAll('.dot');
+        allDots.forEach(dot => {
+          const dotVal = parseInt(dot.getAttribute('data-value'));
+          if (dotVal <= newVal) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        updatePool();
+      }
+    });
+
+    // Calculate total pool from checked checkboxes (Boons add, Banes subtract)
+    function updatePool() {
+      let totalPool = 0;
+      const checkboxes = document.querySelectorAll('.pool-checkbox:checked');
+
+      checkboxes.forEach(cb => {
+        const statName = cb.getAttribute('data-stat');
+        const isBane = cb.getAttribute('data-is-bane') === 'true';
+        const container = document.querySelector(`[data-stat-group="${statName}"]`);
+        
+        if (container) {
+          const val = parseInt(container.getAttribute('data-value') || 0);
+          if (isBane) {
+            totalPool -= val;
+          } else {
+            totalPool += val;
+          }
+        }
+      });
+
+      // Keep minimum pool at 0
+      if (totalPool < 0) totalPool = 0;
+
+      document.getElementById('pool-score').textContent = totalPool;
+      return totalPool;
+    }
+
+    // Roll d10s equal to the active pool score
+    function rollPool() {
+      const poolSize = updatePool();
+      if (poolSize <= 0) {
+        document.getElementById('roll-output').innerHTML = "<span style='color:#ef4444;'>Select at least one stat box to roll!</span>";
+        return;
+      }
+
+      let rolls = [];
+      let successes = 0;
+
+      for (let i = 0; i < poolSize; i++) {
+        const roll = Math.floor(Math.random() * 10) + 1;
+        rolls.push(roll);
+        if (roll >= 8) successes++;
+      }
+
+      document.getElementById('roll-output').innerHTML = 
+        `Rolls: [ <strong>${rolls.join(', ')}</strong> ]<br>Successes (8+): <strong>${successes}</strong>`;
+    }
+
+    // Export sheet container as PNG image
+    function exportSheet() {
+      const element = document.getElementById('sheet-container');
+      html2canvas(element).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'scorthar-character-sheet.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCORTHAR CHARACTER SHEET</title>
+  <!-- Library for PNG Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #121214;
+      --card-bg: #1e1e24;
+      --accent-color: #10b981;
+      --bane-color: #ef4444;
+      --border-color: #33333d;
+      --text-color: #e4e4e7;
+      --muted-text: #a1a1aa;
+      --input-bg: #141417;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #sheet-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 900px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      text-align: center;
+      letter-spacing: 1.5px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: var(--accent-color);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .section-header {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted-text);
+      margin: 16px 0 8px 0;
+    }
+
+    /* Editable Text Fields */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .field-row label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted-text);
+      min-width: 110px;
+    }
+
+    .field-row input[type="text"] {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-color);
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .field-row input[type="text"]:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* Clustered Details Grid */
+    .details-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .details-cluster .field-row label {
+      min-width: 80px;
+    }
+
+    @media (min-width: 420px) {
+      .details-cluster {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Abilities 3-Column Grid */
+    .abilities-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .abilities-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .ability-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ability-col-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* Side-by-Side Boons & Banes Cluster */
+    .boons-banes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 600px) {
+      .boons-banes-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .bb-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bb-column-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+    }
+
+    .title-boon {
+      color: var(--accent-color);
+    }
+
+    .title-bane {
+      color: var(--bane-color);
+    }
+
+    /* Stat Rows & Custom Dots */
+    .stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 5px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.05);
+      gap: 6px;
+    }
+
+    .stat-label-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .stat-label-group input[type="text"] {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-color);
+      padding: 4px 6px;
+      font-size: 0.8rem;
+      width: 100%;
+      outline: none;
+    }
+
+    .stat-label-group input[type="text"]:focus {
+      border-color: var(--accent-color);
+    }
+
+    .bane-column .stat-label-group input[type="text"]:focus {
+      border-color: var(--bane-color);
+    }
+
+    .pool-checkbox {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--accent-color);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .bane-checkbox {
+      accent-color: var(--bane-color);
+    }
+
+    .stat-name {
+      font-size: 0.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Interactive Dot Styling */
+    .dots-container {
+      display: flex;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid #52525b;
+      background-color: transparent;
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: all 0.15s ease;
+    }
+
+    .dot.active {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 5px rgba(16, 185, 129, 0.6);
+    }
+
+    .bane-column .dot.active {
+      background-color: var(--bane-color);
+      border-color: var(--bane-color);
+      box-shadow: 0 0 5px rgba(239, 68, 68, 0.6);
+    }
+
+    /* Willpower 10-Dot Row Specifics */
+    .willpower-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+    }
+
+    .willpower-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+
+    .dots-container-10 {
+      display: flex;
+      gap: 4px;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .dots-container-10 .dot {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Pool Display */
+    .pool-card {
+      margin-top: 20px;
+      background: #141417;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .pool-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      margin: 4px 0;
+    }
+
+    .roll-output {
+      font-size: 0.9rem;
+      color: var(--text-color);
+      min-height: 28px;
+      margin-top: 8px;
+    }
+
+    /* Buttons */
+    .button-group {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-roll {
+      background-color: var(--accent-color);
+      color: #000;
+    }
+
+    .btn-roll:hover {
+      background-color: #059669;
+    }
+
+    .btn-export {
+      background-color: #27272a;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-export:hover {
+      background-color: #3f3f46;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SHEET CONTAINER -->
+  <div id="sheet-container">
+    <h1>SCORTHAR CHARACTER SHEET</h1>
+
+    <!-- PLAYER & CHARACTER INFORMATION -->
+    <div class="section-header">Identity</div>
+    <div class="field-group">
+      <div class="field-row">
+        <label for="player-name">Player Name:</label>
+        <input type="text" id="player-name" placeholder="Enter player name...">
+      </div>
+      <div class="field-row">
+        <label for="char-name">Character Name:</label>
+        <input type="text" id="char-name" placeholder="Enter character name...">
+      </div>
+    </div>
+
+    <!-- CLUSTERED CHARACTER DETAILS -->
+    <div class="section-header">Character Traits</div>
+    <div class="details-cluster">
+      <div class="field-row">
+        <label for="soul">Soul:</label>
+        <input type="text" id="soul" placeholder="...">
+      </div>
+      <div class="field-row">
+        <label for="mask">Mask:</label>
+        <input type="text" id="mask" placeholder="...">
+      </div>
+      <div class="field-row">
+        <label for="vice">Vice:</label>
+        <input type="text" id="vice" placeholder="...">
+      </div>
+      <div class="field-row">
+        <label for="merit">Merit:</label>
+        <input type="text" id="merit" placeholder="...">
+      </div>
+    </div>
+
+    <!-- ABILITIES SECTION -->
+    <div class="section-header">Abilities</div>
+    <div class="abilities-grid">
+
+      <!-- TALENTS COLUMN -->
+      <div class="ability-column">
+        <div class="ability-col-title">Talents</div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_awareness" onchange="updatePool()">
+            <span class="stat-name">Awareness</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_awareness" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_athletics" onchange="updatePool()">
+            <span class="stat-name">Athletics</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_athletics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_communication" onchange="updatePool()">
+            <span class="stat-name">Communication</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_communication" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_empathy" onchange="updatePool()">
+            <span class="stat-name">Empathy</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_empathy" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_intimidation" onchange="updatePool()">
+            <span class="stat-name">Intimidation</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_intimidation" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_subterfuge" onchange="updatePool()">
+            <span class="stat-name">Subterfuge</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_subterfuge" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_politics" onchange="updatePool()">
+            <span class="stat-name">Politics</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_politics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_performance" onchange="updatePool()">
+            <span class="stat-name">Performance</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_performance" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_sleight_of_hand" onchange="updatePool()">
+            <span class="stat-name">Sleight of Hand</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_sleight_of_hand" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_sense_motive" onchange="updatePool()">
+            <span class="stat-name">Sense Motive</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_sense_motive" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_dramatic" onchange="updatePool()">
+            <span class="stat-name">Dramatic</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_dramatic" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_visual_calculus" onchange="updatePool()">
+            <span class="stat-name">Visual Calculus</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_visual_calculus" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_pain_threshold" onchange="updatePool()">
+            <span class="stat-name">Pain Threshold</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_pain_threshold" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_endurance" onchange="updatePool()">
+            <span class="stat-name">Endurance</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_endurance" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_shivers" onchange="updatePool()">
+            <span class="stat-name">Shivers (Dream)</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_shivers" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="talent_composure" onchange="updatePool()">
+            <span class="stat-name">Composure</span>
+          </div>
+          <div class="dots-container" data-stat-group="talent_composure" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SKILLS COLUMN -->
+      <div class="ability-column">
+        <div class="ability-col-title">Skills</div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_explosives" onchange="updatePool()">
+            <span class="stat-name">Explosives</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_explosives" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_crafts" onchange="updatePool()">
+            <span class="stat-name">Crafts</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_crafts" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_animal_handling" onchange="updatePool()">
+            <span class="stat-name">Animal Handling</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_animal_handling" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_projectiles" onchange="updatePool()">
+            <span class="stat-name">Projectiles/Ranged</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_projectiles" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_spellcasting" onchange="updatePool()">
+            <span class="stat-name">Spellcasting</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_spellcasting" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_stealth" onchange="updatePool()">
+            <span class="stat-name">Stealth</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_stealth" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_streetwise" onchange="updatePool()">
+            <span class="stat-name">Streetwise</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_streetwise" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_survival" onchange="updatePool()">
+            <span class="stat-name">Survival Nature</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_survival" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_melee" onchange="updatePool()">
+            <span class="stat-name">Melee Weapons</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_melee" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_martial_arts" onchange="updatePool()">
+            <span class="stat-name">Martial Arts (Hug)</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_martial_arts" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_piloting" onchange="updatePool()">
+            <span class="stat-name">Piloting/Riding</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_piloting" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="skill_savoir_faire" onchange="updatePool()">
+            <span class="stat-name">Savoir-faire</span>
+          </div>
+          <div class="dots-container" data-stat-group="skill_savoir_faire" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- KNOWLEDGES COLUMN -->
+      <div class="ability-column">
+        <div class="ability-col-title">Knowledges</div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_academics" onchange="updatePool()">
+            <span class="stat-name">Academics</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_academics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_arcana" onchange="updatePool()">
+            <span class="stat-name">Arcana</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_arcana" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_religion" onchange="updatePool()">
+            <span class="stat-name">Religion</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_religion" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_investigation" onchange="updatePool()">
+            <span class="stat-name">Investigation</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_investigation" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_law" onchange="updatePool()">
+            <span class="stat-name">Law/Authority</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_law" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_medicine" onchange="updatePool()">
+            <span class="stat-name">Medicine</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_medicine" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_history" onchange="updatePool()">
+            <span class="stat-name">History</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_history" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_science" onchange="updatePool()">
+            <span class="stat-name">Science</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_science" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_computer_tech" onchange="updatePool()">
+            <span class="stat-name">Computer Tech</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_computer_tech" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_homeopathy" onchange="updatePool()">
+            <span class="stat-name">Homeopathy</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_homeopathy" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_polyglot" onchange="updatePool()">
+            <span class="stat-name">Polyglot</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_polyglot" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_mechanics" onchange="updatePool()">
+            <span class="stat-name">Mechanics</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_mechanics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_electronics" onchange="updatePool()">
+            <span class="stat-name">Electronics</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_electronics" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-label-group">
+            <input type="checkbox" class="pool-checkbox" data-stat="know_biology" onchange="updatePool()">
+            <span class="stat-name">Biology</span>
+          </div>
+          <div class="dots-container" data-stat-group="know_biology" data-value="0">
+            <span class="dot" data-value="1"></span><span class="dot" data-value="2"></span><span class="dot" data-value="3"></span><span class="dot" data-value="4"></span><span class="dot" data-value="5"></span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- WILLPOWER -->
+    <div class="section-header">Willpower</div>
+    <div class="stat-row willpower-row">
+      <div class="willpower-header">
+        <div class="stat-label-group">
+          <input type="checkbox" class="pool-checkbox" data-stat="willpower" onchange="updatePool()">
+          <span class="stat-name" style="font-size:0.9rem;">Willpower</span>
+        </div>
+      </div>
+      <div class="dots-container-10" data-stat-group="willpower" data-value="5">
+        <span class="dot active" data-value="1"></span>
+        <span class="dot active" data-value="2"></span>
+        <span class="dot active" data-value="3"></span>
+        <span class="dot active" data-value="4"></span>
+        <span class="dot active" data-value="5"></span>
+        <span class="dot" data-value="6"></span>
+        <span class="dot" data-value="7"></span>
+        <span class="dot" data-value="8"></span>
+        <span class="dot" data-value="9"></span>
+        <span class="dot" data-value="10"></span>
+      </div>
+    </div>
+
+    <!-- VIRTUES SECTION -->
+    <div class="section-header">Virtues</div>
+    
+    <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="virtue_self_control" onchange="updatePool()">
+        <span class="stat-name" style="font-size:0.9rem;">Self Control</span>
+      </div>
+      <div class="dots-container" data-stat-group="virtue_self_control" data-value="1">
+        <span class="dot active" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="virtue_courage" onchange="updatePool()">
+        <span class="stat-name" style="font-size:0.9rem;">Courage</span>
+      </div>
+      <div class="dots-container" data-stat-group="virtue_courage" data-value="1">
+        <span class="dot active" data-value="1"></span>
+        <span class="dot" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
+      </div>
+    </div>
+
+    <div class="stat-row" style="padding: 8px 12px; margin-bottom: 6px;">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="virtue_conviction" onchange="updatePool()">
+        <span class="stat-name" style="font-size:0.9rem;">Conviction</span>
       </div>
       <div class="dots-container" data-stat-group="virtue_conviction" data-value="1">
         <span class="dot active" data-value="1"></span>
