@@ -120,7 +120,7 @@
       }
     }
 
-    /* Stat Rows & Dots */
+    /* Stat Rows & Custom Dots */
     .stat-row {
       display: flex;
       align-items: center;
@@ -149,38 +149,36 @@
       font-size: 0.95rem;
     }
 
-    /* Dot Styling */
-    .dots-group {
+    /* Interactive Dot Styling */
+    .dots-container {
       display: flex;
-      gap: 4px;
+      gap: 6px;
     }
 
-    .dots-group-10 {
+    .dots-container-10 {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
       align-items: flex-end;
     }
 
     .dots-row {
       display: flex;
-      gap: 4px;
+      gap: 6px;
     }
 
-    input[type="radio"].dot-radio {
+    .dot {
       width: 18px;
       height: 18px;
       border-radius: 50%;
       border: 2px solid #52525b;
-      appearance: none;
-      -webkit-appearance: none;
+      background-color: transparent;
       cursor: pointer;
-      outline: none;
+      box-sizing: border-box;
       transition: all 0.15s ease;
-      margin: 0;
     }
 
-    input[type="radio"].dot-radio:checked {
+    .dot.active {
       background-color: var(--accent-color);
       border-color: var(--accent-color);
       box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
@@ -297,22 +295,20 @@
         <input type="checkbox" class="pool-checkbox" data-stat="willpower" onchange="updatePool()">
         <span class="stat-name">Willpower</span>
       </div>
-      <div class="dots-group-10">
-        <!-- Row 1: Dots 1 to 5 -->
+      <div class="dots-container-10" data-stat-group="willpower" data-value="5">
         <div class="dots-row">
-          <input type="radio" class="dot-radio" name="willpower" value="1" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="2" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="3" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="4" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="5" checked onchange="updatePool()">
+          <span class="dot active" data-value="1"></span>
+          <span class="dot active" data-value="2"></span>
+          <span class="dot active" data-value="3"></span>
+          <span class="dot active" data-value="4"></span>
+          <span class="dot active" data-value="5"></span>
         </div>
-        <!-- Row 2: Dots 6 to 10 -->
         <div class="dots-row">
-          <input type="radio" class="dot-radio" name="willpower" value="6" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="7" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="8" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="9" onchange="updatePool()">
-          <input type="radio" class="dot-radio" name="willpower" value="10" onchange="updatePool()">
+          <span class="dot" data-value="6"></span>
+          <span class="dot" data-value="7"></span>
+          <span class="dot" data-value="8"></span>
+          <span class="dot" data-value="9"></span>
+          <span class="dot" data-value="10"></span>
         </div>
       </div>
     </div>
@@ -325,12 +321,12 @@
         <input type="checkbox" class="pool-checkbox" data-stat="attr_tech" onchange="updatePool()">
         <span class="stat-name">Tech / Craft</span>
       </div>
-      <div class="dots-group">
-        <input type="radio" class="dot-radio" name="attr_tech" value="1" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_tech" value="2" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_tech" value="3" checked onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_tech" value="4" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_tech" value="5" onchange="updatePool()">
+      <div class="dots-container" data-stat-group="attr_tech" data-value="3">
+        <span class="dot active" data-value="1"></span>
+        <span class="dot active" data-value="2"></span>
+        <span class="dot active" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
       </div>
     </div>
 
@@ -339,12 +335,12 @@
         <input type="checkbox" class="pool-checkbox" data-stat="attr_phys" onchange="updatePool()">
         <span class="stat-name">Physical</span>
       </div>
-      <div class="dots-group">
-        <input type="radio" class="dot-radio" name="attr_phys" value="1" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_phys" value="2" checked onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_phys" value="3" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_phys" value="4" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="attr_phys" value="5" onchange="updatePool()">
+      <div class="dots-container" data-stat-group="attr_phys" data-value="2">
+        <span class="dot active" data-value="1"></span>
+        <span class="dot active" data-value="2"></span>
+        <span class="dot" data-value="3"></span>
+        <span class="dot" data-value="4"></span>
+        <span class="dot" data-value="5"></span>
       </div>
     </div>
 
@@ -356,12 +352,12 @@
         <input type="checkbox" class="pool-checkbox" data-stat="boon_savant" onchange="updatePool()">
         <span class="stat-name">Idiot Savant</span>
       </div>
-      <div class="dots-group">
-        <input type="radio" class="dot-radio" name="boon_savant" value="1" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="boon_savant" value="2" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="boon_savant" value="3" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="boon_savant" value="4" onchange="updatePool()">
-        <input type="radio" class="dot-radio" name="boon_savant" value="5" checked onchange="updatePool()">
+      <div class="dots-container" data-stat-group="boon_savant" data-value="5">
+        <span class="dot active" data-value="1"></span>
+        <span class="dot active" data-value="2"></span>
+        <span class="dot active" data-value="3"></span>
+        <span class="dot active" data-value="4"></span>
+        <span class="dot active" data-value="5"></span>
       </div>
     </div>
 
@@ -381,6 +377,33 @@
   </div>
 
   <script>
+    // Handle clicking on dots to fill up to clicked value
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('dot')) {
+        const clickedDot = e.target;
+        const container = clickedDot.closest('[data-stat-group]');
+        const clickedVal = parseInt(clickedDot.getAttribute('data-value'));
+        const currentVal = parseInt(container.getAttribute('data-value'));
+
+        // Toggle logic: Clicking current rating reduces it by 1 (allows setting to 0)
+        let newVal = (clickedVal === currentVal) ? clickedVal - 1 : clickedVal;
+        container.setAttribute('data-value', newVal);
+
+        // Update dot appearances
+        const allDots = container.querySelectorAll('.dot');
+        allDots.forEach(dot => {
+          const dotVal = parseInt(dot.getAttribute('data-value'));
+          if (dotVal <= newVal) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        updatePool();
+      }
+    });
+
     // Calculate total pool from checked checkboxes
     function updatePool() {
       let totalPool = 0;
@@ -388,9 +411,9 @@
 
       checkboxes.forEach(cb => {
         const statName = cb.getAttribute('data-stat');
-        const selectedDot = document.querySelector(`input[name="${statName}"]:checked`);
-        if (selectedDot) {
-          totalPool += parseInt(selectedDot.value);
+        const container = document.querySelector(`[data-stat-group="${statName}"]`);
+        if (container) {
+          totalPool += parseInt(container.getAttribute('data-value') || 0);
         }
       });
 
