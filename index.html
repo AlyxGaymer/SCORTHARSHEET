@@ -82,6 +82,8 @@
 
     .field-row input[type="text"] {
       flex: 1;
+      width: 100%;
+      min-width: 0;
       background: var(--input-bg);
       border: 1px solid var(--border-color);
       border-radius: 6px;
@@ -89,17 +91,18 @@
       padding: 6px 10px;
       font-size: 0.9rem;
       outline: none;
+      box-sizing: border-box;
     }
 
     .field-row input[type="text"]:focus {
       border-color: var(--accent-color);
     }
 
-    /* Clustered Details Grid */
+    /* Responsive Clustered Details Grid */
     .details-cluster {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--border-color);
       border-radius: 8px;
@@ -107,7 +110,18 @@
     }
 
     .details-cluster .field-row label {
-      min-width: 70px;
+      min-width: 80px;
+    }
+
+    /* On screens 420px wide and up, convert cluster to 2 columns */
+    @media (min-width: 420px) {
+      .details-cluster {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .details-cluster .field-row:nth-child(5) {
+        grid-column: span 2; /* Willpower spans full width */
+      }
     }
 
     /* Stat Rows & Dots */
@@ -265,7 +279,7 @@
         <label for="merit">Merit:</label>
         <input type="text" id="merit" placeholder="...">
       </div>
-      <div class="field-row" style="grid-column: span 2;">
+      <div class="field-row">
         <label for="willpower">Willpower:</label>
         <input type="text" id="willpower" placeholder="...">
       </div>
