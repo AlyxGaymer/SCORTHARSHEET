@@ -113,14 +113,10 @@
       min-width: 80px;
     }
 
-    /* On screens 420px wide and up, convert cluster to 2 columns */
     @media (min-width: 420px) {
       .details-cluster {
         display: grid;
         grid-template-columns: 1fr 1fr;
-      }
-      .details-cluster .field-row:nth-child(5) {
-        grid-column: span 2; /* Willpower spans full width */
       }
     }
 
@@ -153,13 +149,25 @@
       font-size: 0.95rem;
     }
 
-    /* 5-Dot Styling */
+    /* Dot Styling */
     .dots-group {
       display: flex;
       gap: 4px;
     }
 
-    .dots-group input[type="radio"] {
+    .dots-group-10 {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .dots-row {
+      display: flex;
+      gap: 4px;
+    }
+
+    input[type="radio"].dot-radio {
       width: 18px;
       height: 18px;
       border-radius: 50%;
@@ -169,9 +177,10 @@
       cursor: pointer;
       outline: none;
       transition: all 0.15s ease;
+      margin: 0;
     }
 
-    .dots-group input[type="radio"]:checked {
+    input[type="radio"].dot-radio:checked {
       background-color: var(--accent-color);
       border-color: var(--accent-color);
       box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
@@ -279,9 +288,32 @@
         <label for="merit">Merit:</label>
         <input type="text" id="merit" placeholder="...">
       </div>
-      <div class="field-row">
-        <label for="willpower">Willpower:</label>
-        <input type="text" id="willpower" placeholder="...">
+    </div>
+
+    <!-- WILLPOWER (10-DOT DISPLAY) -->
+    <div class="section-header">Willpower</div>
+    <div class="stat-row">
+      <div class="stat-label-group">
+        <input type="checkbox" class="pool-checkbox" data-stat="willpower" onchange="updatePool()">
+        <span class="stat-name">Willpower</span>
+      </div>
+      <div class="dots-group-10">
+        <!-- Row 1: Dots 1 to 5 -->
+        <div class="dots-row">
+          <input type="radio" class="dot-radio" name="willpower" value="1" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="2" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="3" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="4" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="5" checked onchange="updatePool()">
+        </div>
+        <!-- Row 2: Dots 6 to 10 -->
+        <div class="dots-row">
+          <input type="radio" class="dot-radio" name="willpower" value="6" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="7" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="8" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="9" onchange="updatePool()">
+          <input type="radio" class="dot-radio" name="willpower" value="10" onchange="updatePool()">
+        </div>
       </div>
     </div>
 
@@ -294,11 +326,11 @@
         <span class="stat-name">Tech / Craft</span>
       </div>
       <div class="dots-group">
-        <input type="radio" name="attr_tech" value="1" onchange="updatePool()">
-        <input type="radio" name="attr_tech" value="2" onchange="updatePool()">
-        <input type="radio" name="attr_tech" value="3" checked onchange="updatePool()">
-        <input type="radio" name="attr_tech" value="4" onchange="updatePool()">
-        <input type="radio" name="attr_tech" value="5" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_tech" value="1" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_tech" value="2" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_tech" value="3" checked onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_tech" value="4" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_tech" value="5" onchange="updatePool()">
       </div>
     </div>
 
@@ -308,11 +340,11 @@
         <span class="stat-name">Physical</span>
       </div>
       <div class="dots-group">
-        <input type="radio" name="attr_phys" value="1" onchange="updatePool()">
-        <input type="radio" name="attr_phys" value="2" checked onchange="updatePool()">
-        <input type="radio" name="attr_phys" value="3" onchange="updatePool()">
-        <input type="radio" name="attr_phys" value="4" onchange="updatePool()">
-        <input type="radio" name="attr_phys" value="5" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_phys" value="1" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_phys" value="2" checked onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_phys" value="3" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_phys" value="4" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="attr_phys" value="5" onchange="updatePool()">
       </div>
     </div>
 
@@ -325,11 +357,11 @@
         <span class="stat-name">Idiot Savant</span>
       </div>
       <div class="dots-group">
-        <input type="radio" name="boon_savant" value="1" onchange="updatePool()">
-        <input type="radio" name="boon_savant" value="2" onchange="updatePool()">
-        <input type="radio" name="boon_savant" value="3" onchange="updatePool()">
-        <input type="radio" name="boon_savant" value="4" onchange="updatePool()">
-        <input type="radio" name="boon_savant" value="5" checked onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="boon_savant" value="1" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="boon_savant" value="2" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="boon_savant" value="3" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="boon_savant" value="4" onchange="updatePool()">
+        <input type="radio" class="dot-radio" name="boon_savant" value="5" checked onchange="updatePool()">
       </div>
     </div>
 
