@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fantasy Character Sheet</title>
+<!-- Library for PNG Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: #18181b;
+color: #f4f4f5;
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* Main Printable Sheet Area */
+#character-sheet {
+background: #27272a;
+border: 2px solid #3f3f46;
+border-radius: 12px;
+padding: 24px;
+width: 100%;
+max-width: 500px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+h1 {
+text-align: center;
+font-size: 1.5rem;
+color: #a1a1aa;
+margin-top: 0;
+border-bottom: 1px solid #3f3f46;
+padding-bottom: 10px;
+}
+
+.section-title {
+font-size: 0.9rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: #10b981;
+margin: 16px 0 8px 0;
+}
+
+.stat-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+background: #18181b;
+padding: 8px 12px;
+border-radius: 6px;
+}
+
+.stat-label {
+font-size: 0.95rem;
+}
+
+/* 5-Dot Selection Styling */
+.dots {
+display: flex;
+gap: 4px;
+}
+
+.dots input[type="radio"] {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+border: 2px solid #71717a;
+appearance: none;
+cursor: pointer;
+outline: none;
+transition: all 0.15s ease;
+}
+
+.dots input[type="radio"]:checked {
+background-color: #10b981;
+border-color: #10b981;
+box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+/* Dice Pool & Roller Controls */
+.pool-container {
+margin-top: 20px;
+background: #18181b;
+border: 1px solid #3f3f46;
+border-radius: 8px;
+padding: 16px;
+text-align: center;
+}
+
+.pool-score {
+font-size: 2rem;
+font-weight: bold;
+color: #10b981;
+}
+
+.roll-results {
+margin-top: 10px;
+font-size: 0.9rem;
+color: #d4d4d8;
+min-height: 24px;
+}
+
+/* Action Buttons */
+.controls {
+width: 100%;
+max-width: 500px;
+display: flex;
+gap: 10px;
+margin-top: 16px;
+}
+
+button {
+flex: 1;
+padding: 12px;
+font-weight: bold;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+transition: background 0.2s ease;
+}
+
+.btn-roll { background: #10b981; color: #000; }
+.btn-roll:hover { background: #059669; }
+
+.btn-export { background: #3f3f46; color: #fff; }
+.btn-export:hover { background: #52525b; }
+</style>
+</head>
+<body>
+
+<!-- EXPORTABLE SHEET CONTAINER -->
+<div id="character-sheet">
+<h1>Fantasy Character Sheet</h1>
+
+<!-- ATTRIBUTES SECTION -->
+<div class="section-title">Attributes & Skills</div>
+<div class="stat-row">
+<span class="stat-label">Physical / Tech</span>
+<div class="dots">
+<input type="radio" name="attr" value="1">
+<input type="radio" name="attr" value="2">
+<input type="radio" name="attr" value="3" checked>
+<input type="radio" name="attr" value="4">
+<input type="radio" name="attr" value="5">
+</div>
+</div>
+
+<!-- BOONS SECTION (Imported structure from Google Sheet) -->
+<div class="section-title">Boons</div>
+<div class="stat-row">
+<span class="stat-label">Idiot Savant (+Tech)</span>
+<div class="dots">
+<input type="radio" name="boon" value="0">
+<input type="radio" name="boon" value="1">
+<input type="radio" name="boon" value="2">
+<input type="radio" name="boon" value="3">
+<input type="radio" name="boon" value="4">
+<input type="radio" name="boon" value="5" checked>
+</div>
+</div>
+
+<!-- AUTO-CALCULATING POOL DISPLAY -->
+<div class="pool-container">
+<div>Active Dice Pool</div>
+<div class="pool-score" id="total-pool">8</div>
+<div class="roll-results" id="roll-results">Click "Roll Pool" to roll d10s</div>
+</div>
+</div>
+
+<!-- INTERACTIVE CONTROLS -->
+<div class="controls">
+<button class="btn-roll" onclick="rollDice()">Roll Pool</button>
+<button class="btn-export" onclick="exportToImage()">Export Image</button>
+</div>
+
+<script>
+// 1. Calculate Active Dice Pool
+function calculatePool() {
+const attrVal = parseInt(document.querySelector('input[name="attr"]:checked')?.value || 0);
+const boonVal = parseInt(document.querySelector('input[name="boon"]:checked')?.value || 0);
+const total = attrVal + boonVal;
+
+document.getElementById('total-pool').textContent = total;
+return total;
+}
+
+// Attach listener to every radio button
+document.querySelectorAll('input[type="radio"]').forEach(dot => {
+dot.addEventListener('change', calculatePool);
+});
+
+// 2. Built-in Dice Roller (Rolls d10s, target 8+)
+function rollDice() {
+const poolSize = calculatePool();
+let rolls = [];
+let successes = 0;
+
+for (let i = 0; i < poolSize; i++) {
+const roll = Math.floor(Math.random() * 10) + 1;
+rolls.push(roll);
+if (roll >= 8) successes++; // Counts 8, 9, 10 as successes
+}
+
+document.getElementById('roll-results').innerHTML =
+Rolls: [ ${rolls.join(', ')} ]<br><strong>Successes: ${successes}&lt;/strong>;
+}
+
+// 3. Export Character Sheet as PNG
+function exportToImage() {
+const sheet = document.getElementById('character-sheet');
+html2canvas(sheet).then(canvas => {
+const link = document.createElement('a');
+link.download = 'fantasy-character-sheet.png';
+link.href = canvas.toDataURL('image/png');
+link.click();
+});
+}
+</script>
+
+</body>
+</html>
